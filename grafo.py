@@ -8,6 +8,9 @@ Abril 2021
 from arista import Arista
 from nodo import Nodo
 
+"""
+Clase Grafo, contiene principalmente un conjunto de nodos y un conjunto de aristas
+"""
 
 class Grafo:
 
@@ -18,12 +21,18 @@ class Grafo:
         self.dirigido = False
         self.auto = False
 
+    """
+    Verifica que exista la arista con cierto nombre
+    """
     def existearista(self, nombre):
         for n in self.aristas:
             if n.id == nombre:
                 return 1
         return 0
 
+    """
+    Incrementa en 1 el grado de un nodo
+    """
     def incrementagradoalnodo(self, id):
         for n in self.nodos:
             if id == int(n.id):
