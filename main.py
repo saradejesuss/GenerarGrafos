@@ -36,7 +36,7 @@ if __name__ == '__main__':
     gE = algoritmos.grafoErdosRenyi(500, 700)
     gE.muestragv()
     #gE.archivogv("ErdosRenyi")
-
+    
     # Grafo con el modelo de Gilbert para 30, 100 y 500 nodos
     gG = algoritmos.grafoGilbert(30, 0.5)
     gG.muestragv()
@@ -50,14 +50,14 @@ if __name__ == '__main__':
 
     # Grafo con el modelo Geográfico simple para 30, 100 y 500 nodos
     gS = algoritmos.grafoGeografico(30, 0.5)
-    gS.muestragv()
-    #gS.archivogv("GeograficoSimple")
+    gS.muestragvpos()
+    #gS.archivogvpos("GeograficoSimple")
     gS = algoritmos.grafoGeografico(100, 0.2)
-    gS.muestragv()
-    #gS.archivogv("GeograficoSimple")
+    gS.muestragvpos()
+    #gS.archivogvpos("GeograficoSimple")
     gS = algoritmos.grafoGeografico(500, 0.1)
-    gS.muestragv()
-    #gS.archivogv("GeograficoSimple")
+    gS.muestragvpos()
+    #gS.archivogvpos("GeograficoSimple")
 
     # Grafo con el modelo Barabasi-Albert para 30, 100 y 500 nodos
     gB = algoritmos.grafoBarabasiAlbert(30, 2)
@@ -80,3 +80,5 @@ if __name__ == '__main__':
     gD = algoritmos.grafoDorogovtsevMendes(500)
     gD.muestragv()
     #gD.archivogv("DorogovtsevMendes")
+
+

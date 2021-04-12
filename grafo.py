@@ -8,9 +8,11 @@ Abril 2021
 from arista import Arista
 from nodo import Nodo
 
+
 """
 Clase Grafo, contiene principalmente un conjunto de nodos y un conjunto de aristas
 """
+
 
 class Grafo:
 
@@ -112,11 +114,11 @@ class Grafo:
     Obtener una arista por su id
     """
     def obtenerarista(self, idx):
-        i=0
+        i = 0
         for a in self.aristas:
-           if i == idx:
-               return a
-           i += 1
+            if i == idx:
+                return a
+            i += 1
 
     """
     Mostrar el conjunto de nodos del grafo
@@ -126,6 +128,14 @@ class Grafo:
         for n in self.nodos:
             print("   " + str(n.id) + ",")
         print("   }")
+
+    """
+    Mostrar los nodos con sus posiciones: 
+    nodo0 [pos="x,y"]... nodon [pos="x,y"];
+    """
+    def muestranodospos(self):
+        for n in self.nodos:
+            print("   " + str(n.id) + " [pos=\"" + str(n.x) + ", " + str(n.y) + "\",];")
 
     """
     Mostrar el conjunto de aristas del grafo
@@ -155,6 +165,16 @@ class Grafo:
         print("}")
 
     """
+    Mostrar el formato gv con nodos x,y: graph { nodo0 [pos="x,y",];...arista0; ... aristan; }
+    """
+    def muestragvpos(self):
+        print("graph{")
+        self.muestranodospos()
+        for a in self.aristas:
+            print("   " + str(a.id) + ";")
+        print("}")
+
+    """
     Crear el archivo GraphViz gv
     """
     def archivogv(self, nombrealgoritmo):
@@ -164,3 +184,14 @@ class Grafo:
             f.write("   " + str(a.id) + ";\r\n")
         f.write("}")
 
+    """
+    Crear el archivo GraphViz gv incluyendo posiciones de los nodos
+    """
+    def archivogvpos(self, nombrealgoritmo):
+        f = open("" + nombrealgoritmo + str(len(self.nodos)) + ".gv", "w")
+        f.write("graph{\r\n")
+        for n in self.nodos:
+            f.write("   " + str(n.id) + " [pos=\"" + str(n.x * 1000) + ", " + str(n.y * 1000) + "\",];\r\n")
+        for a in self.aristas:
+            f.write("   " + str(a.id) + ";\r\n")
+        f.write("}")
