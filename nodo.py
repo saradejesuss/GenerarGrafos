@@ -6,8 +6,12 @@ Sara De Jesús Sánchez
 Abril 2021
 """
 
-class Nodo:
+"""
+Clase Nodo, sus propiedades son id, coordenadas y grado, principalmente
+"""
 
+
+class Nodo:
 
     def __init__(self, nombre, x=0.0, y=0.0, gr=0.0):
 

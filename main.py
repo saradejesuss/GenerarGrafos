@@ -8,8 +8,14 @@ Abril 2021
 
 import algoritmos
 
+"""
+Programa principal, desde donde se ejecutan las funciones 
+para generar grafos mediante los distintos modelos.
+"""
+
 if __name__ == '__main__':
 
+    # Grafo con el modelo de Malla para 30, 100 y 500 nodos
     gM = algoritmos.grafoMalla(6, 5)
     gM.muestragv()
     #gM.archivogv("Malla")
@@ -20,6 +26,7 @@ if __name__ == '__main__':
     gM.muestragv()
     #gM.archivogv("Malla")
 
+    # Grafo con el modelo de Erdos y Renyi para 30, 100 y 500 nodos
     gE = algoritmos.grafoErdosRenyi(30, 40)
     gE.muestragv()
     #gE.archivogv("ErdosRenyi")
@@ -30,6 +37,7 @@ if __name__ == '__main__':
     gE.muestragv()
     #gE.archivogv("ErdosRenyi")
 
+    # Grafo con el modelo de Gilbert para 30, 100 y 500 nodos
     gG = algoritmos.grafoGilbert(30, 0.5)
     gG.muestragv()
     #gG.archivogv("Gilbert")
@@ -40,6 +48,7 @@ if __name__ == '__main__':
     gG.muestragv()
     #gG.archivogv("Gilbert")
 
+    # Grafo con el modelo Geográfico simple para 30, 100 y 500 nodos
     gS = algoritmos.grafoGeografico(30, 0.5)
     gS.muestragv()
     #gS.archivogv("GeograficoSimple")
@@ -50,6 +59,7 @@ if __name__ == '__main__':
     gS.muestragv()
     #gS.archivogv("GeograficoSimple")
 
+    # Grafo con el modelo Barabasi-Albert para 30, 100 y 500 nodos
     gB = algoritmos.grafoBarabasiAlbert(30, 2)
     gB.muestragv()
     #gB.archivogv("BarabasiAlbert")
@@ -60,6 +70,7 @@ if __name__ == '__main__':
     gB.muestragv()
     #gB.archivogv("BarabasiAlbert")
 
+    # Grafo con el modelo Dorogovtsev-Mendes para 30, 100 y 500 nodos
     gD = algoritmos.grafoDorogovtsevMendes(30)
     gD.muestragv()
     #gD.archivogv("DorogovtsevMendes")

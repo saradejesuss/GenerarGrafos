@@ -94,11 +94,11 @@ def grafoErdosRenyi(n, m, dirigido=False, auto=False):
         # Si los nodos son diferentes, agregar la arista al grafo g
         if nodo1 != nodo2:
             agregada = g.agregaarista(nodo1, nodo2)
-            # Si la arista no se pudo agregar porque ya existe, regresar el índice para volver a intentar
+            # Si la arista no agregó porque ya existe, regresar el índice e intentar con otro par
             if agregada == 0:
                 i -= 1
         else:
-            # Si los nodos son iguales, no agregar la arista y regresar el índice para volver a intentar
+            # Si los nodos son iguales, no agregar arista, regresar el índice e intentar con otro par
             i -= 1
         # Incrementar el índice
         i += 1
@@ -232,7 +232,7 @@ def grafoBarabasiAlbert(n, d, dirigido=False, auto=False):
         if i >= d:
             # Inicializar el número de aristas agregadas al nuevo nodo
             di = 0
-            # Mientras no el número de aristas agregadas sea menor que d
+            # Mientras el número de aristas agregadas sea menor que d
             while di < d:
                 # Para todos los nodos existentes
                 for j in range(i):
