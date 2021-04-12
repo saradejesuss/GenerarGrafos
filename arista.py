@@ -6,6 +6,11 @@ Sara De Jesús Sánchez
 Abril 2021
 """
 
+"""
+Clase Arista, sus propiedades son id y vértices
+"""
+
+
 class Arista:
 
     def __init__(self, id, source, target):

@@ -22,7 +22,7 @@ class Grafo:
         self.auto = False
 
     """
-    Verifica que exista la arista con cierto nombre
+    Verificar que exista la arista con cierto nombre
     """
     def existearista(self, nombre):
         for n in self.aristas:
@@ -31,69 +31,86 @@ class Grafo:
         return 0
 
     """
-    Incrementa en 1 el grado de un nodo
+    Incrementar en 1 el grado de un nodo
     """
     def incrementagradoalnodo(self, id):
         for n in self.nodos:
             if id == int(n.id):
                 n.grado += 1
-                #print("grado de: " + str(id) + "=" + str(n.grado))
                 return 1
         return 0
 
+    """
+    Agregar una arista entre dos nodos
+    """
     def agregaarista(self, source, target):
         id = str(source) + " -- " + str(target)
         idx = id
-        #Si no es dirigido comprueba que no exista la arista en ambos sentidos
-        if self.dirigido == False:
+        # Si no es dirigido comprobar que no existe la arista en ambos sentidos
+        if not self.dirigido:
             idx = str(target) + " -- " + str(source)
         if self.existearista(id) == 1 or self.existearista(idx) == 1:
-            print(" ya existe arista " + id + " or " + idx )
+            # print(" ya existe arista " + id + " or " + idx)
             agregada = 0
         else:
+            # Si no existe la arista, verificar que sí existen los nodos
             if self.existenodo(source) == 0 or self.existenodo(target) == 0:
-                print(" no existe el nodo " + str(source) + " o el nodo " + str(target))
+                # print(" no existe el nodo " + str(source) + " o el nodo " + str(target))
                 agregada = 0
             else:
+                # Crear la arista y agregarla al conjunto de aristas del grafo
                 nuevaarista = Arista(id, str(source), str(target))
-                #print(nuevaarista.src + " -- " + nuevaarista.trg + ";")
                 self.aristas.add(nuevaarista)
                 agregada = 1
+                # Incrementar el grado de los vértices de la arista
                 self.incrementagradoalnodo(source)
                 self.incrementagradoalnodo(target)
-            #print("aristas: "  + str(self.aristas))
+        # Devolver si la arista fue o no agregada
         return agregada
 
+    """
+    Verificar que existe el nodo
+    """
     def existenodo(self, name):
         for n in self.nodos:
             if n.id == name:
                 return 1
         return 0
 
+    """
+    Agregar un nodo al grafo
+    """
     def agreganodo(self, nombre):
-        #print(nombre)
+        # Verificar que no se duplique el nodo
         if self.existenodo(nombre) == 1:
-            #print("ya existe nodo " + str(nombre))
             agregado = 0
         else:
+            # Crear un nuevo nodo y agregarlo al conjunto de nodos del grafo
             nuevonodo = Nodo(nombre)
             self.nodos.add(nuevonodo)
             agregado = 1
-            #print("nodo agregado " + str(nombre))
-        #print("nodos: " + str(self.nodos))
+        # Regresar si el nodo fue agregado o no
         return agregado
 
+    """
+    Obtener el nodo, según su fila y columna
+    """
     def obtenernodo(self, i, j):
         nombrenodo = i*j + j
         for n in self.nodos:
             if n.id == nombrenodo:
                 return n
-
+    """
+    Obtener un nodo por su id
+    """
     def obtenernodo(self, i):
         for n in self.nodos:
             if n.id == i:
                 return n
 
+    """
+    Obtener una arista por su id
+    """
     def obtenerarista(self, idx):
         i=0
         for a in self.aristas:
@@ -101,30 +118,45 @@ class Grafo:
                return a
            i += 1
 
+    """
+    Mostrar el conjunto de nodos del grafo
+    """
     def muestranodos(self):
         print("   nodos{")
         for n in self.nodos:
             print("   " + str(n.id) + ",")
         print("   }")
 
+    """
+    Mostrar el conjunto de aristas del grafo
+    """
     def muestraaristas(self):
         print("   aristas{")
         for a in self.aristas:
             print("   " + str(a.id) + ";")
         print("   }")
 
+    """
+    Mostrar el grafo: Nombre { nodos {} aristas {} }
+    """
     def muestragrafo(self):
         print(self.nombre + "{")
         self.muestranodos()
         self.muestraaristas()
         print("}")
 
+    """
+    Mostrar el formato gv: graph { arista0; ... aristan; }
+    """
     def muestragv(self):
         print("graph{")
         for a in self.aristas:
             print("   " + str(a.id) + ";")
         print("}")
 
+    """
+    Crear el archivo GraphViz gv
+    """
     def archivogv(self, nombrealgoritmo):
         f = open("" + nombrealgoritmo + str(len(self.nodos)) + ".gv", "w")
         f.write("graph{\r\n")
