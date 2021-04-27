@@ -19,11 +19,11 @@ class Nodo:
         self.x = x
         self.y = y
         self.grado = gr
-        self.atrib: {
-            ATTR_ESTILO: {
-                ESTILO_COLOR: (100, 200, 300),
-            },
-        }
+        # self.atrib = {
+        #    ATTR_ESTILO: {
+        #        ESTILO_COLOR: (100, 200, 300)
+        #    }
+        # }
 
     def __str__(self):
 

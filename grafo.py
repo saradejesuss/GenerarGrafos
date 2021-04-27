@@ -5,6 +5,7 @@ Análisis y diseño de Algoritmos - Dr. Rolando Quintero
 Sara De Jesús Sánchez
 Abril 2021
 """
+
 from arista import Arista
 from nodo import Nodo
 
@@ -12,17 +13,18 @@ from nodo import Nodo
 """
 Clase Grafo, contiene principalmente un conjunto de nodos y un conjunto de aristas
 """
-
-
 class Grafo:
 
     def __init__(self):
         self.nombre = 'Graph'
-        self.nodos = set(())
+        self.nodos = set()
+        self.nodost = set()
         self.aristas = set(())
+        self.aristast = set(())
         self.dirigido = False
         self.auto = False
-
+        self.discovered = list()
+        self.layer = list()
     """
     Verificar que exista la arista con cierto nombre
     """
@@ -43,12 +45,13 @@ class Grafo:
         return 0
 
     """
-    Agregar una arista entre dos nodos
+    Agregar una arista entre dos nodos, para agregarla deben existir ambos nodos.
+    Si no es dirigido, comprobar que no exista la arista en uno u otro sentido
     """
     def agregaarista(self, source, target):
         id = str(source) + " -- " + str(target)
         idx = id
-        # Si no es dirigido comprobar que no existe la arista en ambos sentidos
+        # Si no es dirigido comprobar que no existe la arista en uno u otro sentidos
         if not self.dirigido:
             idx = str(target) + " -- " + str(source)
         if self.existearista(id) == 1 or self.existearista(idx) == 1:
@@ -89,6 +92,7 @@ class Grafo:
         else:
             # Crear un nuevo nodo y agregarlo al conjunto de nodos del grafo
             nuevonodo = Nodo(nombre)
+            # nuevonodo.atrib.ATTR_ESTILO.ESTILO_Color = (1, 1, 1)
             self.nodos.add(nuevonodo)
             agregado = 1
         # Regresar si el nodo fue agregado o no
@@ -119,6 +123,18 @@ class Grafo:
             if i == idx:
                 return a
             i += 1
+
+    """
+    Verifica si el nodo está en la arista.
+    Devuelve el otro nodo de la arista o -1 si la arista no contiene al nodo.
+    """
+    def nodoenarista(self, nodo, arista):
+        if arista.src == str(nodo):
+            return arista.trg
+        elif arista.trg == str(nodo):
+            return arista.src
+        else:
+            return -1
 
     """
     Mostrar el conjunto de nodos del grafo
@@ -195,3 +211,149 @@ class Grafo:
         for a in self.aristas:
             f.write("   " + str(a.id) + ";\r\n")
         f.write("}")
+
+    """
+    Obtener todas las aristas incidentes al nodo n
+    """
+    def aristasincidentes(self, n):
+        aristasi = []
+        for a in self.aristas:
+            if int(a.src) == int(n) or int(a.trg) == int(n):
+                aristasi.append(a)
+        return aristasi
+
+    """
+    Limpiar la lista de nodos descubiertos y la lista de capas del árbol.
+    Marcar al nodo fuente como descubierto y todos los demás como no descubiertos.
+    """
+    def rstarbol(self, s):
+        self.discovered.clear()
+        self.layer.clear()
+        for v in range(len(self.nodos)):
+            self.discovered.append(False)
+        if self.existenodo(s):
+            self.discovered[s] = True
+
+    """
+    Calcular el árbol BFS del grafo a partir del nodo fuente s
+    """
+    def arbol_bfs(self, s):
+        if not self.existenodo(s):
+            return 0
+        # Reiniciar el árbol, marcando el nodo fuente s como descubierto y los demás como no descubiertos
+        self.rstarbol(s)
+        # i indica el índice de la capa
+        i = 0
+        # Agregar el nodo fuente s a la lista de capas
+        self.layer.append([s])
+        # Crear el arbolbfs y agregar el nodo fuente
+        arbolbfs = Grafo()
+        arbolbfs.agreganodo(s)
+        tamlayer = len(self.layer[i])
+        # Mientras la capa i no esté vacía
+        while 0 < tamlayer:
+            agregado = 0
+            # Para cada nodo n en la capa i, buscar las aristas n-m incidente
+            for n in self.layer[i]:
+                aristasi = self.aristasincidentes(n)
+                m = int(n)
+                # Para cada nodo incidente verificar si no ha sido descubierto.
+                for ai in aristasi:
+                    if int(n) == int(ai.trg):
+                        m = int(ai.src)
+                    elif int(n) == int(ai.src):
+                        m = int(ai.trg)
+                    # Si el nodo incidente no ha sido descubierto, marcarlo, agregar el nodo y la arista a la capa
+                    if not self.discovered[m]:
+                        self.discovered[m] = True
+                        if agregado == 0:
+                            self.layer.append([m])
+                        else:
+                            self.layer[i+1].append(m)
+                        arbolbfs.agreganodo(m)
+                        arbolbfs.agregaarista(n, m)
+                        agregado += 1
+            # Si al menos se agregó un nodo a la capa siguiente, continuar el ciclo de búsqueda, de lo contrario terminar
+            if agregado > 0:
+                i += 1
+                tamlayer = len(self.layer[i])
+            else:
+                tamlayer = 0
+        # Devolver el árbol BFS calculado
+        return arbolbfs
+
+    """
+    Función recursiva para calcular el árbol DFS
+    """
+    def funcionrec(self, arboldfsr, u):
+        # Marcar el nodo como descubierto
+        self.discovered[int(u)] = True
+        # Obtener las aristas incidentes al nodo u
+        aristasi = self.aristasincidentes(int(u))
+        # Para cada arista incidenta a u, obtener el nodo vecino
+        for a in aristasi:
+            v = u
+            if u == int(a.src):
+                v = a.trg
+            elif u == int(a.trg):
+                v = a.src
+            # Si el nodo vecino no ha sido descubierto, marcarlo, agregar el nodo y la arista al árbol y repetir
+            if not self.discovered[int(v)]:
+                arboldfsr.agreganodo(int(v))
+                arboldfsr.agregaarista(int(u), int(v))
+                # Llamar a la misma función en forma recursiva, para el nodo vecino v
+                self.funcionrec(arboldfsr, int(v))
+
+    """
+    Calcular el árbol DFS del grafo, mediante una función RECURSIVA, a partir del nodo fuente s
+    """
+    def arbol_dfs_r(self, s):
+        # Reiniciar el árbol DFSr, marcando el nodo fuente s como descubierto y los demás como no descubiertos
+        self.rstarbol(s)
+        # Crear el árbol DFS recursivo y agregar el nodo fuente
+        arboldfsr = Grafo()
+        arboldfsr.agreganodo(int(s))
+        # Llamar a la función recursiva para calcular el árbol DFS a partir del nodo fuente s
+        self.funcionrec(arboldfsr, int(s))
+        # Devolver el árbol DFS calculado
+        return arboldfsr
+
+    """
+    Calcular el árbol DFS del grafo, mediante una función ITERATIVA, a partir del nodo fuente s
+    """
+    def arbol_dfs_i(self, s):
+        if not self.existenodo(s):
+            return 0
+        # Reiniciar el árbol, marcando el nodo fuente s como descubierto y los demás como no descubiertos
+        self.rstarbol(s)
+        # Crear el árbol DFS iterativo, la pila y la lista de aristas incidentes.
+        arboldfsi = Grafo()
+        stack = []
+        aristasi = list
+        # Agregar el nodo fuente al árbol DFS iterativo
+        arboldfsi.agreganodo(s)
+        # Agregar las aristas incidentes al nodo fuente a la pila
+        aristasi = self.aristasincidentes(s)
+        stack.extend(aristasi)
+        # Mientras la pila no esté vacía, sacar el último elemento
+        while len(stack) > 0:
+            a = stack.pop()
+            # Si el nodo vecino no ha sido descubierto, marcarlo, agregarlo al árbol y buscar sus aristas incidentes.
+            aristasi = []
+            if not self.discovered[int(a.trg)]:
+                self.discovered[int(a.trg)] = True
+                arboldfsi.agreganodo(int(a.trg))
+                aristasi = self.aristasincidentes(a.trg)
+            elif not self.discovered[int(a.src)]:
+                self.discovered[int(a.src)] = True
+                arboldfsi.agreganodo(int(a.src))
+                aristasi = self.aristasincidentes(a.src)
+            # Si el nodo vecino ya ha sido descubierto no hacer nada, continuar el ciclo
+            else:
+                continue
+            # Agregar la arista al árbol y agregar a la pila todas las aristas incidentes.
+            arboldfsi.agregaarista(int(a.src), int(a.trg))
+            stack.extend(aristasi)
+        # Devolver el árbol DFS calculado
+        return arboldfsi
+

@@ -301,3 +301,4 @@ def grafoDorogovtsevMendes(n, dirigido=False):
 
 
 
+
