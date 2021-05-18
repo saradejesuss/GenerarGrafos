@@ -13,11 +13,12 @@ Clase Arista, sus propiedades son id y vértices
 
 class Arista:
 
-    def __init__(self, id, source, target):
+    def __init__(self, id, source, target, cost=1):
 
         self.id = id
         self.src = source
         self.trg = target
+        self.cost = cost
 
     def __str__(self):
 

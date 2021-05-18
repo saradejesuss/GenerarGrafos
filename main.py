@@ -3,7 +3,7 @@ CIC - IPN
 Análisis y diseño de Algoritmos - Dr. Rolando Quintero
 
 Sara De Jesús Sánchez
-Abril 2021
+Mayo 2021
 """
 
 import algoritmos
@@ -16,8 +16,10 @@ para generar grafos mediante los distintos modelos.
 if __name__ == '__main__':
 
     # Grafo con el modelo de Malla para 30 nodos, con cálculo de BFS, DFSr y DFSi
-    gM = algoritmos.grafoMalla(6, 5)
+    gM = algoritmos.grafoMalla(3, 3)
     gM.muestragv()
+    gM.Dijkstra(0)
+    """
     gM.archivogv("Malla30")
     gBFS = gM.arbol_bfs(1)
     gBFS.muestragv()
@@ -28,10 +30,11 @@ if __name__ == '__main__':
     gDFSi = gM.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSI_Malla30")
-
+    """
     # Grafo con el modelo de Malla para 100 nodos, con cálculo de BFS, DFSr y DFSi
-    gM = algoritmos.grafoMalla(10, 10)
-    gM.muestragv()
+    # gM = algoritmos.grafoMalla(10, 10)
+    # gM.muestragv()
+    """
     gM.archivogv("Malla100")
     gBFS = gM.arbol_bfs(1)
     gBFS.muestragv()
@@ -42,10 +45,11 @@ if __name__ == '__main__':
     gDFSi = gM.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_Malla100")
-
+    """
     # Grafo con el modelo de Malla para 500 nodos, con cálculo de BFS, DFSr y DFSi
-    gM = algoritmos.grafoMalla(25, 20)
-    gM.muestragv()
+    # gM = algoritmos.grafoMalla(25, 20)
+    # gM.muestragv()
+    """
     gM.archivogv("Malla500")
     gBFS = gM.arbol_bfs(1)
     gBFS.muestragv()
@@ -56,10 +60,11 @@ if __name__ == '__main__':
     gDFSi = gM.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_Malla500")
-
+    """
     # Grafo con el modelo de Erdos y Renyi para 30 nodos y cálculo de BFS, DFSr y DFSi
-    gE = algoritmos.grafoErdosRenyi(30, 40)
-    gE.muestragv()
+    # gE = algoritmos.grafoErdosRenyi(30, 40)
+    # gE.muestragv()
+    """
     gE.archivogv("ErdosRenyi30")
     gBFS = gE.arbol_bfs(1)
     gBFS.muestragv()
@@ -70,10 +75,11 @@ if __name__ == '__main__':
     gDFSi = gE.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_ErdosRenyi30")
-
+    """
     # Grafo con el modelo de Erdos y Renyi para 100 nodos y cálculo de BFS, DFSr y DFSi
-    gE = algoritmos.grafoErdosRenyi(100, 150)
-    gE.muestragv()
+    # gE = algoritmos.grafoErdosRenyi(100, 150)
+    # gE.muestragv()
+    """
     gE.archivogv("ErdosRenyi100")
     gBFS = gE.arbol_bfs(1)
     gBFS.muestragv()
@@ -84,10 +90,11 @@ if __name__ == '__main__':
     gDFSi = gE.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_ErdosRenyi100")
-
+    """
     # Grafo con el modelo de Erdos y Renyi para 500 nodos y cálculo de BFS, DFSr y DFSi
-    gE = algoritmos.grafoErdosRenyi(500, 700)
-    gE.muestragv()
+    # gE = algoritmos.grafoErdosRenyi(500, 700)
+    # gE.muestragv()
+    """
     gE.archivogv("ErdosRenyi500")
     gBFS = gE.arbol_bfs(1)
     gBFS.muestragv()
@@ -98,10 +105,11 @@ if __name__ == '__main__':
     gDFSi = gE.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_ErdosRenyi500")
-
+    """
     # Grafo con el modelo de Gilbert para 30 nodos y cálculo de BFS, DFSr y DFSi
-    gG = algoritmos.grafoGilbert(30, 0.5)
-    gG.muestragv()
+    # gG = algoritmos.grafoGilbert(30, 0.5)
+    # gG.muestragv()
+    """
     gG.archivogv("Gilbert30")
     gBFS = gG.arbol_bfs(1)
     gBFS.muestragv()
@@ -112,10 +120,11 @@ if __name__ == '__main__':
     gDFSi = gG.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_Gilbert30")
-
+    """
     # Grafo con el modelo de Gilbert para 100 nodos y cálculo de BFS, DFSr y DFSi
-    gG = algoritmos.grafoGilbert(100, 0.2)
-    gG.muestragv()
+    # gG = algoritmos.grafoGilbert(100, 0.2)
+    # gG.muestragv()
+    """
     gG.archivogv("Gilbert100")
     gBFS = gG.arbol_bfs(1)
     gBFS.muestragv()
@@ -126,10 +135,11 @@ if __name__ == '__main__':
     gDFSi = gG.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_Gilbert100")
-
+    """
     # Grafo con el modelo de Gilbert para 500 nodos y cálculo de BFS, DFSr y DFSi
-    gG = algoritmos.grafoGilbert(500, 0.01)
-    gG.muestragv()
+    # gG = algoritmos.grafoGilbert(500, 0.01)
+    # gG.muestragv()
+    """
     gG.archivogv("Gilbert500")
     gBFS = gG.arbol_bfs(1)
     gBFS.muestragv()
@@ -140,10 +150,11 @@ if __name__ == '__main__':
     gDFSi = gG.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_Gilbert500")
-
+    """
     # Grafo con el modelo Geográfico simple para 30 nodos y cálculo de BFS, DFSr y DFSi
-    gS = algoritmos.grafoGeografico(30, 0.5)
-    gS.muestragvpos()
+    # gS = algoritmos.grafoGeografico(30, 0.5)
+    # gS.muestragvpos()
+    """
     gS.archivogvpos("GeograficoSimple30")
     gBFS = gS.arbol_bfs(1)
     gBFS.muestragv()
@@ -154,10 +165,11 @@ if __name__ == '__main__':
     gDFSi = gS.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_GeograficoSimple30")
-
+    """
     # Grafo con el modelo Geográfico simple para 100 nodos y cálculo de BFS, DFSr y DFSi
-    gS = algoritmos.grafoGeografico(100, 0.2)
-    gS.muestragvpos()
+    # gS = algoritmos.grafoGeografico(100, 0.2)
+    # gS.muestragvpos()
+    """
     gS.archivogvpos("GeograficoSimple100")
     gBFS = gS.arbol_bfs(1)
     gBFS.muestragv()
@@ -168,10 +180,11 @@ if __name__ == '__main__':
     gDFSi = gS.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_GeograficoSimple100")
-
+    """
     # Grafo con el modelo Geográfico simple para 500 nodos y cálculo de BFS, DFSr y DFSi
-    gS = algoritmos.grafoGeografico(500, 0.1)
-    gS.muestragvpos()
+    # gS = algoritmos.grafoGeografico(500, 0.1)
+    # gS.muestragvpos()
+    """
     gS.archivogvpos("GeograficoSimple500")
     gBFS = gS.arbol_bfs(1)
     gBFS.muestragv()
@@ -182,10 +195,11 @@ if __name__ == '__main__':
     gDFSi = gS.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_GeograficoSimple500")
-
+    """
     # Grafo con el modelo Barabasi-Albert para 30 nodos y cálculo de BFS, DFSr y DFSi
-    gB = algoritmos.grafoBarabasiAlbert(30, 2)
-    gB.muestragv()
+    # gB = algoritmos.grafoBarabasiAlbert(30, 2)
+    # gB.muestragv()
+    """
     gB.archivogv("BarabasiAlbert30")
     gBFS = gB.arbol_bfs(1)
     gBFS.muestragv()
@@ -196,10 +210,11 @@ if __name__ == '__main__':
     gDFSi = gB.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_BarabasiAlbert30")
-
+    """
     # Grafo con el modelo Barabasi-Albert para 100 nodos y cálculo de BFS, DFSr y DFSi
-    gB = algoritmos.grafoBarabasiAlbert(100, 2)
-    gB.muestragv()
+    # gB = algoritmos.grafoBarabasiAlbert(100, 2)
+    # gB.muestragv()
+    """
     gB.archivogv("BarabasiAlbert100")
     gBFS = gB.arbol_bfs(1)
     gBFS.muestragv()
@@ -210,10 +225,11 @@ if __name__ == '__main__':
     gDFSi = gB.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_BarabasiAlbert100")
-
+    """
     # Grafo con el modelo Barabasi-Albert para 500 nodos y cálculo de BFS, DFSr y DFSi
-    gB = algoritmos.grafoBarabasiAlbert(500, 2)
-    gB.muestragv()
+    # gB = algoritmos.grafoBarabasiAlbert(500, 2)
+    # gB.muestragv()
+    """
     gB.archivogv("BarabasiAlbert500")
     gBFS = gB.arbol_bfs(1)
     gBFS.muestragv()
@@ -224,10 +240,11 @@ if __name__ == '__main__':
     gDFSi = gB.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_BarabasiAlbert500")
-
+    """
     # Grafo con el modelo Dorogovtsev-Mendes para 30 nodos y cálculo de BFS, DFSr y DFSi
-    gD = algoritmos.grafoDorogovtsevMendes(30)
-    gD.muestragv()
+    # gD = algoritmos.grafoDorogovtsevMendes(30)
+    # gD.muestragv()
+    """
     gD.archivogv("DorogovtsevMendes30")
     gBFS = gD.arbol_bfs(1)
     gBFS.muestragv()
@@ -238,10 +255,11 @@ if __name__ == '__main__':
     gDFSi = gD.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_DorogovtsevMendes30")
-
+    """
     # Grafo con el modelo Dorogovtsev-Mendes para 100 nodos y cálculo de BFS, DFSr y DFSi
-    gD = algoritmos.grafoDorogovtsevMendes(100)
-    gD.muestragv()
+    # gD = algoritmos.grafoDorogovtsevMendes(100)
+    # gD.muestragv()
+    """
     gD.archivogv("DorogovtsevMendes100")
     gBFS = gD.arbol_bfs(1)
     gBFS.muestragv()
@@ -252,10 +270,11 @@ if __name__ == '__main__':
     gDFSi = gD.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_DorogovtsevMendes100")
-
+    """
     # Grafo con el modelo Dorogovtsev-Mendes para 500 nodos y cálculo de BFS, DFSr y DFSi
-    gD = algoritmos.grafoDorogovtsevMendes(500)
-    gD.muestragv()
+    # gD = algoritmos.grafoDorogovtsevMendes(500)
+    # gD.muestragv()
+    """
     gD.archivogv("DorogovtsevMendes500")
     gBFS = gD.arbol_bfs(1)
     gBFS.muestragv()
@@ -266,3 +285,4 @@ if __name__ == '__main__':
     gDFSi = gD.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_DorogovtsevMendes500")
+    """

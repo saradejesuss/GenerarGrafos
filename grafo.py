@@ -6,6 +6,7 @@ Sara De Jesús Sánchez
 Abril 2021
 """
 
+from collections import OrderedDict
 from arista import Arista
 from nodo import Nodo
 
@@ -20,11 +21,15 @@ class Grafo:
         self.nodos = set()
         self.nodost = set()
         self.aristas = set(())
-        self.aristast = set(())
+        self.aristast = OrderedDict()
         self.dirigido = False
         self.auto = False
         self.discovered = list()
         self.layer = list()
+        self.s = set()
+        self.ss = set()
+        self.q = OrderedDict()
+
     """
     Verificar que exista la arista con cierto nombre
     """
@@ -83,7 +88,7 @@ class Grafo:
         return 0
 
     """
-    Agregar un nodo al grafo
+    Agregar un nodo con un nombre al grafo
     """
     def agreganodo(self, nombre):
         # Verificar que no se duplique el nodo
@@ -94,6 +99,22 @@ class Grafo:
             nuevonodo = Nodo(nombre)
             # nuevonodo.atrib.ATTR_ESTILO.ESTILO_Color = (1, 1, 1)
             self.nodos.add(nuevonodo)
+            agregado = 1
+        # Regresar si el nodo fue agregado o no
+        return agregado
+
+    """
+    Agregar un nodo de la clase Nodo al grafo 
+    """
+    def agreganodon(self, nodo):
+        # Verificar que no se duplique el nodo
+        if self.existenodo(nodo.id) == 1:
+            agregado = 0
+        else:
+            # Crear un nuevo nodo y agregarlo al conjunto de nodos del grafo
+            # nuevonodo = Nodo(nombre)
+            # nuevonodo.atrib.ATTR_ESTILO.ESTILO_Color = (1, 1, 1)
+            self.nodos.add(nodo)
             agregado = 1
         # Regresar si el nodo fue agregado o no
         return agregado
@@ -154,6 +175,14 @@ class Grafo:
             print("   " + str(n.id) + " [pos=\"" + str(n.x) + ", " + str(n.y) + "\",];")
 
     """
+    Mostrar los nodos con sus distancias (DIJKSTRA): 
+    nodo0 [label="nodo0(2)"]... nodon [label="nodon(17)"];
+    """
+    def muestranodosdis(self):
+        for n in self.nodos:
+            print("   " + str(n.id) + " [label=\"" + str(n.id) + "(" + str(n.d) + ")\"];")
+
+    """
     Mostrar el conjunto de aristas del grafo
     """
     def muestraaristas(self):
@@ -161,6 +190,15 @@ class Grafo:
         for a in self.aristas:
             print("   " + str(a.id) + ";")
         print("   }")
+
+    """
+    Mostrar el conjunto de aristas del grafo con su costo
+    """
+    def muestraaristascosto(self):
+        # print("   aristas{")
+        for a in self.aristas:
+            print("   " + str(a.id) + " [label=\"" + str(a.cost) + "\"];")
+        # print("   }")
 
     """
     Mostrar el grafo: Nombre { nodos {} aristas {} }
@@ -191,6 +229,15 @@ class Grafo:
         print("}")
 
     """
+    Mostrar el grafo en formato gv con distancias y costos (DIJKSTRA)
+    """
+    def muestragrafodijkstra(self):
+        print("graph{")
+        self.muestranodosdis()
+        self.muestraaristascosto()
+        print("}")
+
+    """
     Crear el archivo GraphViz gv
     """
     def archivogv(self, nombrealgoritmo):
@@ -210,6 +257,18 @@ class Grafo:
             f.write("   " + str(n.id) + " [pos=\"" + str(n.x * 1000) + ", " + str(n.y * 1000) + "\",];\r\n")
         for a in self.aristas:
             f.write("   " + str(a.id) + ";\r\n")
+        f.write("}")
+
+    """
+    Crear el archivo GraphViz gv incluyendo distancias y costos (DIJKSTRA)
+    """
+    def archivogvdijkstra(self, nombrealgoritmo):
+        f = open("" + nombrealgoritmo + str(len(self.nodos)) + ".gv", "w")
+        f.write("graph{\r\n")
+        for n in self.nodos:
+            f.write("   " + str(n.id) + " [label=\"" + str(n.id) + "(" + str(n.d) + ")\"];\r\n")
+        for a in self.aristas:
+            f.write("   " + str(a.id) + " [label=\"" + str(a.cost) + "\"];\r\n")
         f.write("}")
 
     """
@@ -356,4 +415,84 @@ class Grafo:
             stack.extend(aristasi)
         # Devolver el árbol DFS calculado
         return arboldfsi
+
+    """
+    Calcular el camino más corto mediante
+    el Algoritmo de DIJKSTRA   
+    """
+    def Dijkstra(self, s):
+        arboldijkstra = Grafo()
+        arista = any
+        nodou = any
+        # Agrega a q los nodos n con prioridad dn=infinito (muy alta)
+        for n in self.nodos:
+            self.q[n.id] = 1000000
+        # Actualizar en q al nodo s con prioridad ds=0
+        self.q[s] = 0
+        print(self.q[s])
+        # Ordenar q
+        for key, _ in sorted(self.q.items(), key=lambda item: item[1]):
+            self.q.move_to_end(key)
+        v = 0
+        # Mientras q no esté vacía
+        while len(self.q) > 0:
+            print(str(len(self.q)))
+            # Sacar el primer elemento de q, u es el nodo, du es la prioridad
+            item = (self.q.popitem(False))
+            u = item[0]
+            du = item[1]
+            print(str(item) + " " + str(u) + " " + str(du))
+            # Agregar a s el nodo u
+            su = str(u) + "[" + str(du) + "]"
+            self.ss.add(su)
+            self.s.add(u)
+            nodou = Nodo(u)
+            nodou.d = du
+            print("distancia" + str(nodou.d))
+            arboldijkstra.agreganodon(nodou)
+            print(self.s)
+            """
+            if len(self.s) > 1:
+                print(self.aristast)
+                print(self.aristast[u])
+                arboldijkstra.agregaarista(self.aristast[u].src, self.aristast[u].trg)
+            """
+            # Para cada arista u - v saliente de u
+            for a in self.aristasincidentes(u):
+                print(self.aristasincidentes(u))
+                print(a)
+                l = 1
+                v = int(self.nodoenarista(u, a))
+                print(v)
+                print(self.q)
+                # Si v no pertenece a s
+                if v in self.s:
+                    print("Ya está en s")
+                else:
+                    print("No está en s")
+                    dv = int(self.q[v])
+                    print(dv)
+                    # Si dv > du + l
+                    if dv > (du + l):
+                        print("es mayor - actualizar")
+                        # Actualizar en q al nodo v con prioridad dv=du+l
+                        self.q[v] = (du + l)
+                        # Ordenar q
+                        for key, _ in sorted(self.q.items(), key=lambda item: item[1]):
+                            self.q.move_to_end(key)
+                        print(self.q)
+                        arista = Arista(a.id, a.src, a.trg, a.cost)
+                        self.aristast[v] = arista
+
+                    else:
+                        print("es menor")
+            print(self.s)
+            print(self.ss)
+            print(self.aristast)
+        for a in self.aristast:
+            arboldijkstra.aristas.add(a)
+        arboldijkstra.muestranodosdis()
+        # arboldijkstra.muestraaristascosto()
+        # arboldijkstra.muestragrafodijkstra()
+
 
