@@ -494,11 +494,11 @@ class Grafo:
                         agregadov = arboldijkstra.agreganodon(nv)
                         if len(self.s) > 1:
                             if (not agregadou and agregadov) or (not agregadov and agregadou):
-                                print("arista agregada" + a.id)
+                                #print("arista agregada" + a.id)
                                 arboldijkstra.agregaaristacosto(u, v, l)
-                            else:
-                                print("arista no agregada" + a.id)
+                            #else:
+                                #print("arista no agregada" + a.id)
                         elif len(self.s) <= 1:
                             arboldijkstra.agregaaristacosto(u, v, l)
-                            print("arista agregada q<2" + a.id)
+                            #print("arista agregada q<2" + a.id)
         return arboldijkstra
