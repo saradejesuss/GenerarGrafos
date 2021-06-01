@@ -9,6 +9,7 @@ Abril 2021
 from collections import OrderedDict
 from arista import Arista
 from nodo import Nodo
+import random
 
 
 """
@@ -77,7 +78,34 @@ class Grafo:
                 self.incrementagradoalnodo(target)
         # Devolver si la arista fue o no agregada
         return agregada
-
+    """
+    Agregar una arista entre dos nodos, para agregarla deben existir ambos nodos.
+    Si no es dirigido, comprobar que no exista la arista en uno u otro sentido
+    """
+    def agregaaristacosto(self, source, target, cost):
+        id = str(source) + " -- " + str(target)
+        idx = id
+        # Si no es dirigido comprobar que no existe la arista en uno u otro sentidos
+        if not self.dirigido:
+            idx = str(target) + " -- " + str(source)
+        if self.existearista(id) == 1 or self.existearista(idx) == 1:
+            #print(" ya existe arista " + id + " or " + idx)
+            agregada = 0
+        else:
+            # Si no existe la arista, verificar que sí existen los nodos
+            if self.existenodo(source) == 0 or self.existenodo(target) == 0:
+                # print(" no existe el nodo " + str(source) + " o el nodo " + str(target))
+                agregada = 0
+            else:
+                # Crear la arista y agregarla al conjunto de aristas del grafo
+                nuevaarista = Arista(id, str(source), str(target), str(cost))
+                self.aristas.add(nuevaarista)
+                agregada = 1
+                # Incrementar el grado de los vértices de la arista
+                self.incrementagradoalnodo(source)
+                self.incrementagradoalnodo(target)
+        # Devolver si la arista fue o no agregada
+        return agregada
     """
     Verificar que existe el nodo
     """
@@ -121,12 +149,13 @@ class Grafo:
 
     """
     Obtener el nodo, según su fila y columna
-    """
+    
     def obtenernodo(self, i, j):
         nombrenodo = i*j + j
         for n in self.nodos:
             if n.id == nombrenodo:
                 return n
+    """
     """
     Obtener un nodo por su id
     """
@@ -195,10 +224,10 @@ class Grafo:
     Mostrar el conjunto de aristas del grafo con su costo
     """
     def muestraaristascosto(self):
-        # print("   aristas{")
-        for a in self.aristas:
-            print("   " + str(a.id) + " [label=\"" + str(a.cost) + "\"];")
-        # print("   }")
+        #print("   aristas{")
+        for aa in self.aristas:
+            print("   " + str(aa.id) + " [label=\"" + str(aa.cost) + "\"];")
+        #print("   }")
 
     """
     Mostrar el grafo: Nombre { nodos {} aristas {} }
@@ -422,77 +451,54 @@ class Grafo:
     """
     def Dijkstra(self, s):
         arboldijkstra = Grafo()
-        arista = any
-        nodou = any
         # Agrega a q los nodos n con prioridad dn=infinito (muy alta)
         for n in self.nodos:
             self.q[n.id] = 1000000
         # Actualizar en q al nodo s con prioridad ds=0
         self.q[s] = 0
-        print(self.q[s])
         # Ordenar q
         for key, _ in sorted(self.q.items(), key=lambda item: item[1]):
             self.q.move_to_end(key)
         v = 0
         # Mientras q no esté vacía
         while len(self.q) > 0:
-            print(str(len(self.q)))
             # Sacar el primer elemento de q, u es el nodo, du es la prioridad
             item = (self.q.popitem(False))
             u = item[0]
             du = item[1]
-            print(str(item) + " " + str(u) + " " + str(du))
             # Agregar a s el nodo u
             su = str(u) + "[" + str(du) + "]"
-            self.ss.add(su)
-            self.s.add(u)
-            nodou = Nodo(u)
-            nodou.d = du
-            print("distancia" + str(nodou.d))
-            arboldijkstra.agreganodon(nodou)
-            print(self.s)
-            """
-            if len(self.s) > 1:
-                print(self.aristast)
-                print(self.aristast[u])
-                arboldijkstra.agregaarista(self.aristast[u].src, self.aristast[u].trg)
-            """
+            self.ss.add(su)  # ss tiene nodos con distancia
+            self.s.add(u)    # s tiene solo el nodo
             # Para cada arista u - v saliente de u
             for a in self.aristasincidentes(u):
-                print(self.aristasincidentes(u))
-                print(a)
-                l = 1
+                l = random.randint(1, 5)     # distancia aleatoria
                 v = int(self.nodoenarista(u, a))
-                print(v)
-                print(self.q)
                 # Si v no pertenece a s
-                if v in self.s:
-                    print("Ya está en s")
-                else:
-                    print("No está en s")
+                if v not in self.s:
                     dv = int(self.q[v])
-                    print(dv)
                     # Si dv > du + l
                     if dv > (du + l):
-                        print("es mayor - actualizar")
                         # Actualizar en q al nodo v con prioridad dv=du+l
                         self.q[v] = (du + l)
                         # Ordenar q
                         for key, _ in sorted(self.q.items(), key=lambda item: item[1]):
                             self.q.move_to_end(key)
-                        print(self.q)
-                        arista = Arista(a.id, a.src, a.trg, a.cost)
+                        arista = Arista(a.id, u, v, du+l)
                         self.aristast[v] = arista
-
-                    else:
-                        print("es menor")
-            print(self.s)
-            print(self.ss)
-            print(self.aristast)
-        for a in self.aristast:
-            arboldijkstra.aristas.add(a)
-        arboldijkstra.muestranodosdis()
-        # arboldijkstra.muestraaristascosto()
-        # arboldijkstra.muestragrafodijkstra()
-
-
+                        nu = Nodo(u)
+                        nu.d = du
+                        agregadou = arboldijkstra.agreganodon(nu)
+                        nv = Nodo(v)
+                        nv.d = du + l
+                        agregadov = arboldijkstra.agreganodon(nv)
+                        if len(self.s) > 1:
+                            if (not agregadou and agregadov) or (not agregadov and agregadou):
+                                print("arista agregada" + a.id)
+                                arboldijkstra.agregaaristacosto(u, v, l)
+                            else:
+                                print("arista no agregada" + a.id)
+                        elif len(self.s) <= 1:
+                            arboldijkstra.agregaaristacosto(u, v, l)
+                            print("arista agregada q<2" + a.id)
+        return arboldijkstra

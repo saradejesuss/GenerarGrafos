@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51fa0e1d-5277-4c22-9c70-1fbf2e4f98ad" name="Default Changelist" comment="últimas imagenes grafos calculados">
-      <change afterPath="$PROJECT_DIR$/colaprioridades.py" afterDir="false" />
+    <list default="true" id="51fa0e1d-5277-4c22-9c70-1fbf2e4f98ad" name="Default Changelist" comment="Algoritmo de Dijkstra">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arista.py" beforeDir="false" afterPath="$PROJECT_DIR$/arista.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grafo.py" beforeDir="false" afterPath="$PROJECT_DIR$/grafo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodo.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619502574981</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Algoritmo de Dijkstra">
+      <created>1621313684994</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1621313684994</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,17 +183,11 @@
     <MESSAGE value="Cálculo de árboles BFS, DFS recursivo y DFS iterativo" />
     <MESSAGE value="imagenes grafos calculados" />
     <MESSAGE value="últimas imagenes grafos calculados" />
-    <option name="LAST_COMMIT_MESSAGE" value="últimas imagenes grafos calculados" />
+    <MESSAGE value="Algoritmo de Dijkstra" />
+    <option name="LAST_COMMIT_MESSAGE" value="Algoritmo de Dijkstra" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/grafo.py</url>
-          <line>494</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
