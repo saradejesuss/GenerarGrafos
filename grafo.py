@@ -22,14 +22,15 @@ class Grafo:
         self.nodos = set()
         self.nodost = set()
         self.aristas = set(())
-        self.aristast = OrderedDict()
+        # self.aristast = OrderedDict()
         self.dirigido = False
         self.auto = False
         self.discovered = list()
         self.layer = list()
-        self.s = set()
-        self.ss = set()
+        self.s = set(())
+        self.ss = set(())
         self.q = OrderedDict()
+        self.l = OrderedDict()
 
     """
     Verificar que exista la arista con cierto nombre
@@ -79,6 +80,22 @@ class Grafo:
         # Devolver si la arista fue o no agregada
         return agregada
     """
+    Asignar el costo a una arista
+    """
+    def asignacostoarista(self, aristaid, cost):
+        x = 0
+        src = 0
+        trg = 0
+        for a in self.aristas:
+            if a.id == aristaid:
+                x = a
+        if x:
+            self.aristas.remove(x)
+            x.cost = cost
+            self.aristas.add(x)
+            #print("costo=" + str(cost) + " agregado a " + aristaid)
+
+    """
     Agregar una arista entre dos nodos, para agregarla deben existir ambos nodos.
     Si no es dirigido, comprobar que no exista la arista en uno u otro sentido
     """
@@ -90,6 +107,7 @@ class Grafo:
             idx = str(target) + " -- " + str(source)
         if self.existearista(id) == 1 or self.existearista(idx) == 1:
             #print(" ya existe arista " + id + " or " + idx)
+            self.asignacostoarista(id, cost)
             agregada = 0
         else:
             # Si no existe la arista, verificar que sí existen los nodos
@@ -124,7 +142,7 @@ class Grafo:
             agregado = 0
         else:
             # Crear un nuevo nodo y agregarlo al conjunto de nodos del grafo
-            nuevonodo = Nodo(nombre)
+            nuevonodo = Nodo(nombre, 0, 0, 1)
             # nuevonodo.atrib.ATTR_ESTILO.ESTILO_Color = (1, 1, 1)
             self.nodos.add(nuevonodo)
             agregado = 1
@@ -267,6 +285,14 @@ class Grafo:
         print("}")
 
     """
+    Mostrar el grafo en formato gv con distancias y costos (DIJKSTRA)
+    """
+    def muestragrafocostos(self):
+        print("graph{")
+        self.muestraaristascosto()
+        print("}")
+
+    """
     Crear el archivo GraphViz gv
     """
     def archivogv(self, nombrealgoritmo):
@@ -301,6 +327,18 @@ class Grafo:
         f.write("}")
 
     """
+    Crear el archivo GraphViz gv incluyendo  costos (Kruskal y Prim)
+    """
+    def archivogvCostos(self, nombrealgoritmo):
+        f = open("" + nombrealgoritmo + str(len(self.nodos)) + ".gv", "w")
+        f.write("graph{\r\n")
+        for n in self.nodos:
+            f.write("   " + str(n.id) + ";\r\n")
+        for a in self.aristas:
+            f.write("   " + str(a.id) + " [label=\"" + str(a.cost) + "\"];\r\n")
+        f.write("}")
+
+    """
     Obtener todas las aristas incidentes al nodo n
     """
     def aristasincidentes(self, n):
@@ -323,10 +361,21 @@ class Grafo:
             self.discovered[s] = True
 
     """
+    Devuelve lista de nodos a partir de las aristas
+    """
+    def agreganodosdearista(self):
+        self.muestranodos()
+        for a in self.aristas:
+            self.agreganodo(a.src,0,0,0)
+            self.agreganodo(a.trg,0,0,0)
+        self.muestranodos()
+
+    """
     Calcular el árbol BFS del grafo a partir del nodo fuente s
     """
     def arbol_bfs(self, s):
         if not self.existenodo(s):
+            print("no existe el nodo " + str(s))
             return 0
         # Reiniciar el árbol, marcando el nodo fuente s como descubierto y los demás como no descubiertos
         self.rstarbol(s)
@@ -367,6 +416,9 @@ class Grafo:
                 tamlayer = len(self.layer[i])
             else:
                 tamlayer = 0
+        # for a in arbolbfs.aristas:
+        #    print("aristas en arbolbfs=" + a.id)
+        # print(len(arbolbfs.nodos))
         # Devolver el árbol BFS calculado
         return arbolbfs
 
@@ -485,7 +537,7 @@ class Grafo:
                         for key, _ in sorted(self.q.items(), key=lambda item: item[1]):
                             self.q.move_to_end(key)
                         arista = Arista(a.id, u, v, du+l)
-                        self.aristast[v] = arista
+                        # self.aristast[v] = arista
                         nu = Nodo(u)
                         nu.d = du
                         agregadou = arboldijkstra.agreganodon(nu)
@@ -502,3 +554,164 @@ class Grafo:
                             arboldijkstra.agregaaristacosto(u, v, l)
                             #print("arista agregada q<2" + a.id)
         return arboldijkstra
+
+    """
+    Calcular el árbol de expansión mínima mediante
+    el Algoritmo de KRUSKAL Directo
+    """
+    def KruskalDir(self):
+        arbolkruskal = Grafo()
+        #Asignar costos aleatorios a las aristas
+        for a in self.aristas:
+            a.cost = random.randint(1, 5)
+            self.q[a] = a.cost
+        # Ordenar aristas por su peso en forma ascendente
+        for key, _ in sorted(self.q.items(), key=lambda item: item[1]):
+            self.q.move_to_end(key)
+        # Componente conectado de cada nodo
+        compcon = OrderedDict()
+        for i in range(len(self.nodos)):
+            compcon[i] = i
+        # Para cada arista en la lista ordenada
+        for a in self.q:
+            u = int(a.src)
+            v = int(a.trg)
+            cost = a.cost
+            cu = compcon[u]
+            cv = compcon[v]
+            # Si los nodos de la arista están en diferentes conjuntos:
+            if cu != cv:
+                # Combinar a los conjuntos que tienen a u y a v
+                for c in compcon:
+                    cc = compcon[c]
+                    if cv == cc:
+                        compcon[c] = cu
+                compcon[v] = cu
+                #print(compcon)
+                # Agregar nodos y arista al árbol de Kruskal
+                nu = Nodo(u, 0, 0, 1)
+                nu.id = u
+                nu.d = 1
+                arbolkruskal.agreganodon(nu)
+                nv = Nodo(u, 0, 0, 1)
+                nv.id = v
+                nv.d = 1
+                arbolkruskal.agreganodon(nv)
+                arbolkruskal.agregaaristacosto(u, v, cost)
+            #else:
+                #print(a.id + "no agregada")
+        return arbolkruskal
+
+    """
+    Reiniciar q
+    """
+    def rstq(self):
+        for i in self.q:
+            self.q[i] = 0
+
+    """
+    Quitar una arista del grafo
+    """
+    def quitararista(self, aristaid):
+        # print(len(self.aristas))
+        x = 0
+        # Para todas las aristas en el grafo encontrar la arista cuyo id sea el buscado
+        for a in self.aristas:
+            if a.id == aristaid:
+                x = a
+        # Si se encontró la arista, quitarla
+        if x:
+            self.aristas.remove(x)
+        # print(len(self.aristas))
+
+    """
+    Calcular el árbol de expansión mínima mediante
+    el Algoritmo de KRUSKAL Inverso
+    """
+    def KruskalInv(self):
+        arbolkruskal = Grafo()
+        self.rstq()
+        #print(self.q.items())
+        # Asignar costos aleatorios a las aristas
+        for a in self.aristas:
+            a.cost = random.randint(1, 5)
+            self.q[a] = a.cost
+            self.asignacostoarista(a.id, a.cost)
+        # Copiar el grafo en el árbol de Kruskal
+        arbolkruskal = self
+        # Ordenar aristas por su peso en forma descendente
+        for key, _ in sorted(self.q.items(), key=lambda item: item[1], reverse=True):
+            self.q.move_to_end(key)
+        # print(self.q.items())
+        #Para todas las aristas en el árbol
+        for a in self.q:
+            # Quitar la arista a
+            # print("quitar a.id=" + a.id + " " + str(len(arbolkruskal.aristas)))
+            arbolkruskal.quitararista(a.id)
+            # print("quitada a.id" + a.id + " " + str(len(arbolkruskal.aristas)))
+            # Componente conectado de un nodo
+            u = int(a.src)
+            v = int(a.trg)
+            bfsu = Grafo()
+            # bfsv = Grafo()
+            #Obtener el componente conectado de uno de los nodos
+            bfsu = arbolkruskal.arbol_bfs(u)
+            # bfsv = arbolkruskal.arbol_bfs(v)
+            # bfsu.muestragrafocostos()
+            # bfsu.muestragrafocostos()
+            # print("u=" + str(u) + " len(bfsu.nodos)=" + str(len(bfsu.nodos)))
+            # print("v=" + str(v) + " len(bfsv.nodos)=" + str(len(bfsv.nodos)))
+            # print("nt=" + str(len(arbolkruskal.nodos)))
+            # Si al quitar la arista el árbol queda desconectado (si hay menos nodos en el bfs que en el original)
+            if len(bfsu.nodos) < len(arbolkruskal.nodos):
+                # print("desconectado: nbfs=" + str(len(bfsu.nodos)) + " nt=" + str(len(arbolkruskal.nodos)) + " AGREGAR! a" + a.id)
+                # No quitar la arista, volver a ponerla
+                arbolkruskal.aristas.add(Arista(a.id, a.src, a.trg, a.cost))
+        return arbolkruskal
+
+    """
+    Calcular el árbol de expansión mínima
+    el Algoritmo de PRIM   
+    """
+    def Prim(self):
+        arbolprim = Grafo()
+        # Reiniciar las aristas ordenadas q, los nodos visitados s y las aristas agregadas av
+        self.rstq()
+        av = OrderedDict()
+        arin = set(())
+        # Asignar costos aleatorios a las aristas, asignarlo a la cola de prioridades
+        for a in self.aristas:
+            a.cost = random.randint(1, 5)
+            self.q[a] = a.cost
+            self.asignacostoarista(a.id, a.cost)
+            av[a] = 10000
+        # Asignar a los costos de las aristas visitadas un valor->infinito, para indicar que no han sido agregadas
+        # Ordenar aristas por su peso en forma ascendente
+        for key, _ in sorted(self.q.items(), key=lambda item: item[1]):
+            self.q.move_to_end(key)
+        while len(self.q) > 0:
+            # Sacar el primer elemento de q
+            item = (self.q.popitem(False))
+            ar = item[0]
+            x = item[1]
+            u = ar.src
+            v = ar.trg
+            # Agregar las aristas incidentes del nuevo nodo
+            if len(self.s) == 0:
+                self.s.add(u)
+                arin.update(self.aristasincidentes(u))
+            # Para cada arista
+            for e in av:
+                v = self.nodoenarista(u, e)
+                # Si el nodo adyacente no está en s y la arista es adyacente y no estaba
+                if v not in self.s and e.cost < av[e] and e in arin:
+                    # Agregar los nodos y la arista al árbol y agregar aristas incidentes
+                    av[e] = e.cost
+                    self.s.add(v)
+                    self.s.add(u)
+                    arin.update(self.aristasincidentes(u))
+                    arin.update(self.aristasincidentes(v))
+                    arbolprim.agreganodo(e.src)
+                    arbolprim.agreganodo(e.trg)
+                    arbolprim.agregaaristacosto(e.src, e.trg, e.cost)
+        return arbolprim

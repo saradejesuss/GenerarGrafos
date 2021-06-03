@@ -29,10 +29,20 @@ if __name__ == '__main__':
     gDFSi = gM.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSI_Malla30")
-    """
+    
     gDjk = gM.Dijkstra(0)
     gDjk.muestragrafodijkstra()
     gDjk.archivogvdijkstra("Dijkstra_Malla30")
+    """
+    gKrk = gM.KruskalDir()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("Kruskal_Malla30")
+    gKrk = gM.KruskalInv()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("KruskalI_Malla30")
+    gPrm = gM.Prim()
+    gPrm.muestragrafocostos()
+    gPrm.archivogvCostos("Prim_Malla30")
 
     # Grafo con el modelo de Malla para 100 nodos, con cálculo de BFS, DFSr y DFSi
     #gM = algoritmos.grafoMalla(10, 10)
@@ -78,10 +88,19 @@ if __name__ == '__main__':
     gDFSi = gE.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_ErdosRenyi30")
-    """
     gDjk = gE.Dijkstra(1)
     gDjk.muestragrafodijkstra()
     gDjk.archivogvdijkstra("Dijkstra_Erdos30")
+    """
+    gKrk = gE.KruskalDir()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("Kruskal_Erdos30")
+    gKrk = gE.KruskalInv()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("KruskalI_Erdos30")
+    gPrm = gE.Prim()
+    gPrm.muestragrafocostos()
+    gPrm.archivogvCostos("Prim_Erdos30")
     # Grafo con el modelo de Erdos y Renyi para 100 nodos y cálculo de BFS, DFSr y DFSi
     # gE = algoritmos.grafoErdosRenyi(100, 150)
     # gE.muestragv()
@@ -114,7 +133,7 @@ if __name__ == '__main__':
     """
     # Grafo con el modelo de Gilbert para 30 nodos y cálculo de BFS, DFSr y DFSi
     gG = algoritmos.grafoGilbert(30, 0.5)
-    gG.muestragv()
+    gG.muestragrafocostos()
     """
     gG.archivogv("Gilbert30")
     gBFS = gG.arbol_bfs(1)
@@ -126,10 +145,19 @@ if __name__ == '__main__':
     gDFSi = gG.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_Gilbert30")
-    """
     gDjk = gG.Dijkstra(1)
     gDjk.muestragrafodijkstra()
     gDjk.archivogvdijkstra("Dijkstra_Gilbert30")
+    """
+    gKrk = gG.KruskalDir()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("Kruskal_Gilber30")
+    gKrk = gG.KruskalInv()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("KruskalI_Gilber30")
+    gPrm = gG.Prim()
+    gPrm.muestragrafocostos()
+    gPrm.archivogvCostos("Prim_Gilbert30")
     # Grafo con el modelo de Gilbert para 100 nodos y cálculo de BFS, DFSr y DFSi
     # gG = algoritmos.grafoGilbert(100, 0.2)
     # gG.muestragv()
@@ -145,6 +173,7 @@ if __name__ == '__main__':
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_Gilbert100")
     """
+
     # Grafo con el modelo de Gilbert para 500 nodos y cálculo de BFS, DFSr y DFSi
     # gG = algoritmos.grafoGilbert(500, 0.01)
     # gG.muestragv()
@@ -174,10 +203,19 @@ if __name__ == '__main__':
     gDFSi = gS.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_GeograficoSimple30")
-    """
     gDjk = gS.Dijkstra(1)
     gDjk.muestragrafodijkstra()
     gDjk.archivogvdijkstra("Dijkstra_Geo30")
+    """
+    gKrk = gS.KruskalDir()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("Kruskal_Geo30")
+    gKrk = gS.KruskalInv()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("KruskalI_Geo30")
+    gPrm = gS.Prim()
+    gPrm.muestragrafocostos()
+    gPrm.archivogvCostos("Prim_Geo30")
     # Grafo con el modelo Geográfico simple para 100 nodos y cálculo de BFS, DFSr y DFSi
     # gS = algoritmos.grafoGeografico(100, 0.2)
     # gS.muestragvpos()
@@ -222,10 +260,19 @@ if __name__ == '__main__':
     gDFSi = gB.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_BarabasiAlbert30")
-    """
     gDjk = gB.Dijkstra(1)
     gDjk.muestragrafodijkstra()
     gDjk.archivogvdijkstra("Dijkstra_Barabasi30")
+    """
+    gKrk = gB.KruskalDir()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("Kruskal_Barabasi30")
+    gKrk = gB.KruskalInv()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("KruskalI_Barabasi30")
+    gPrm = gB.Prim()
+    gPrm.muestragrafocostos()
+    gPrm.archivogvCostos("Prim_Barabasi30")
     # Grafo con el modelo Barabasi-Albert para 100 nodos y cálculo de BFS, DFSr y DFSi
     # gB = algoritmos.grafoBarabasiAlbert(100, 2)
     # gB.muestragv()
@@ -270,10 +317,19 @@ if __name__ == '__main__':
     gDFSi = gD.arbol_dfs_i(1)
     gDFSi.muestragv()
     gDFSi.archivogv("DFSi_DorogovtsevMendes30")
-    """
     gDjk = gD.Dijkstra(1)
     gDjk.muestragrafodijkstra()
     gDjk.archivogvdijkstra("Dijkstra_Dorogovtsev30")
+    """
+    gKrk = gD.KruskalDir()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("Kruskal_Dorogovtsev30")
+    gKrk = gD.KruskalInv()
+    gKrk.muestragrafocostos()
+    gKrk.archivogvCostos("KruskaIl_Dorogovtsev30")
+    gPrm = gD.Prim()
+    gPrm.muestragrafocostos()
+    gPrm.archivogvCostos("Prim_Dorogovtsev30")
     # Grafo con el modelo Dorogovtsev-Mendes para 100 nodos y cálculo de BFS, DFSr y DFSi
     # gD = algoritmos.grafoDorogovtsevMendes(100)
     # gD.muestragv()

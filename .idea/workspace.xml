@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="51fa0e1d-5277-4c22-9c70-1fbf2e4f98ad" name="Default Changelist" comment="Algoritmo de Dijkstra">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dijkstra_Barabasi3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Barabasi3030.gv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dijkstra_Dorogovtsev3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Dorogovtsev3030.gv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dijkstra_Erdos3029.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Erdos3029.gv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dijkstra_Geo3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Geo3030.gv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dijkstra_Gilbert3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Gilbert3030.gv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dijkstra_Malla3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Malla3030.gv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grafo.py" beforeDir="false" afterPath="$PROJECT_DIR$/grafo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -26,7 +32,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="BFSyDFS" />
+        <entry key="$PROJECT_DIR$" value="Dijkstra" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,6 +44,13 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/algoritmos.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/grafo.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/nodo.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/arista.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1qKEJftZGtnqHcAT5xKY7789FaS" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -167,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622573893006</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Algoritmo de Dijkstra">
+      <created>1622588020911</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1622588020912</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
