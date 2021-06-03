@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51fa0e1d-5277-4c22-9c70-1fbf2e4f98ad" name="Default Changelist" comment="Algoritmo de Dijkstra">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dijkstra_Barabasi3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Barabasi3030.gv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dijkstra_Dorogovtsev3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Dorogovtsev3030.gv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dijkstra_Erdos3029.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Erdos3029.gv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dijkstra_Geo3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Geo3030.gv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dijkstra_Gilbert3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Gilbert3030.gv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dijkstra_Malla3030.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Dijkstra_Malla3030.gv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grafo.py" beforeDir="false" afterPath="$PROJECT_DIR$/grafo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="51fa0e1d-5277-4c22-9c70-1fbf2e4f98ad" name="Default Changelist" comment="Algoritmo de Kruskal y Prim" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,7 +177,21 @@
       <option name="project" value="LOCAL" />
       <updated>1622588020912</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Algoritmo de Dijkstra">
+      <created>1622695622818</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1622695622819</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Algoritmo de Kruskal y Prim">
+      <created>1622695642365</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1622695642365</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +215,8 @@
     <MESSAGE value="imagenes grafos calculados" />
     <MESSAGE value="últimas imagenes grafos calculados" />
     <MESSAGE value="Algoritmo de Dijkstra" />
-    <option name="LAST_COMMIT_MESSAGE" value="Algoritmo de Dijkstra" />
+    <MESSAGE value="Algoritmo de Kruskal y Prim" />
+    <option name="LAST_COMMIT_MESSAGE" value="Algoritmo de Kruskal y Prim" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
