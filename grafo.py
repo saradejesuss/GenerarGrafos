@@ -10,7 +10,7 @@ from collections import OrderedDict
 from arista import Arista
 from nodo import Nodo
 import random
-
+import math
 
 """
 Clase Grafo, contiene principalmente un conjunto de nodos y un conjunto de aristas
@@ -715,3 +715,30 @@ class Grafo:
                     arbolprim.agreganodo(e.trg)
                     arbolprim.agregaaristacosto(e.src, e.trg, e.cost)
         return arbolprim
+
+    """
+    Algoritmo Spring
+    """
+    def Spring(self):
+        c1 = 2
+        c2 = 1
+        c3 = 1
+        c4 = 0.1
+        for n in self.nodos:
+            n.x = random.randint(1, 900)
+            n.y = random.randint(1, 600)
+        for u in self.nodos:
+            Fx = 0
+            Fy = 0
+            for a in self.aristasincidentes(u.id):
+                m = int(u.id)
+                uu = str(self.nodoenarista(str(u.id), a))
+                print(uu)
+                v = str(self.obtenernodo(str(uu)))
+                print(v)
+                Fx += c1 * math.log((v.x - u.x)/c2)
+                Fy += c1 * math.log((v.y - u.y)/c2)
+                u.x = c4 * Fx
+                u.y = c4 * Fy
+            print(u.x)
+            print(u.y)
