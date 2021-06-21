@@ -11,6 +11,18 @@ from arista import Arista
 from nodo import Nodo
 import random
 import math
+import numpy as np
+import pygame
+
+from pygame.locals import(
+    RLEACCEL,
+    K_ESCAPE,
+    KEYDOWN,
+    QUIT,
+)
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
 
 """
 Clase Grafo, contiene principalmente un conjunto de nodos y un conjunto de aristas
@@ -19,6 +31,7 @@ class Grafo:
 
     def __init__(self):
         self.nombre = 'Graph'
+        self.algoritmo = ""
         self.nodos = set()
         self.nodost = set()
         self.aristas = set(())
@@ -724,21 +737,62 @@ class Grafo:
         c2 = 1
         c3 = 1
         c4 = 0.1
+        # Asignar posición aleatoria
         for n in self.nodos:
-            n.x = random.randint(1, 900)
+            n.x = random.randint(1, 800)
             n.y = random.randint(1, 600)
-        for u in self.nodos:
-            Fx = 0
-            Fy = 0
-            for a in self.aristasincidentes(u.id):
-                m = int(u.id)
-                uu = str(self.nodoenarista(str(u.id), a))
-                print(uu)
-                v = str(self.obtenernodo(str(uu)))
-                print(v)
-                Fx += c1 * math.log((v.x - u.x)/c2)
-                Fy += c1 * math.log((v.y - u.y)/c2)
-                u.x = c4 * Fx
-                u.y = c4 * Fy
-            print(u.x)
-            print(u.y)
+        # Establecer bandera de ejecución en Verdadero
+        running = True
+        # Inicializar pygamme
+        pygame.init()
+        screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+        # Crear un objeto Clock
+        clock = pygame.time.Clock()
+        # Ciclo de ejecución
+        while running:
+            clock.tick(15)
+            # Cambiar la bandera de ejecución a Falso cuando se presione ESC o se cierre la ventana
+            for event in pygame.event.get():
+                if (event.type == KEYDOWN and event.key == K_ESCAPE) or event.type == QUIT:
+                    running = False
+            # Rellenar la pantalla de color negro
+            screen.fill([0, 0, 0])
+            # Imprimir las líneas de todas las aristas del grafo
+            for a in self.aristas:
+                ns = self.obtenernodo(int(a.src))
+                nt = self.obtenernodo(int(a.trg))
+                pygame.draw.line(screen, [255, 30, 25], [ns.x, ns.y], [nt.x, nt.y], 2)
+            # Imprimir los círculos de los nodos
+            for n in self.nodos:
+                pygame.draw.circle(screen, [30, 255, 25], [n.x, n.y], 5)
+            # Desplegar lo que se trazó
+            pygame.display.flip()
+            # Calcular las fuerzas en x, y
+            # Para cada nodo en el grafo se establecen las fuerzas en 0
+            for u in self.nodos:
+                Fx = 0
+                Fy = 0
+                # Obtener los nodos vecinos
+                # Para cada arista incidente al nodo
+                for a in self.aristasincidentes(u.id):
+                    m = int(u.id)
+                    # Obtener el nodo adyacente
+                    v = self.obtenernodo(int(self.nodoenarista(u.id, a)))
+                    # Calcular fuerza a sumar o restar
+                    if v.x > u.x:
+                        Fx += c1 * math.log(abs(v.x - u.x)/c2)
+                    elif v.x < u.x:
+                        Fx -= c1 * math.log(abs(v.x - u.x)/c2)
+                    else:
+                        Fx += c1
+                    if v.y > u.y:
+                        Fy += c1 * math.log(abs(v.y - u.y)/c2)
+                    elif v.y < u.y:
+                        Fy -= c1 * math.log(abs(v.y - u.y)/c2)
+                    else:
+                        Fy += c1
+                # Si la fuerza no es 0 y la posición del nodo es mayor que 0, mover la posición del nodo con la fuerza
+                if c4*Fx != 0 and u.x > 0:
+                    u.x += int(np.around(c4 * Fx, 0))
+                if c4*Fy != 0 and u.y > 0:
+                    u.y += int(np.around(c4 * Fy, 0))
