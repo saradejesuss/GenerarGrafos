@@ -746,6 +746,7 @@ class Grafo:
         # Inicializar pygamme
         pygame.init()
         screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+        pygame.display.set_caption(self.algoritmo)
         # Crear un objeto Clock
         clock = pygame.time.Clock()
         # Ciclo de ejecución
